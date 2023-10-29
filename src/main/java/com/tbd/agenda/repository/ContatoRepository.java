@@ -11,7 +11,7 @@ public interface ContatoRepository extends MongoRepository<Contato, Integer> {
 
     List<Contato> findByEnderecoCidade(String cidade);
     
-    @Query("{ 'telefones' : { $exists: true, $ne: null, $not: { $size: 1 } } }")
+    @Query("{telefones: { $exists: true, $ne: null }, $where: 'this.telefones.length > 1' }")
     List<Contato> getContatosComMaisDeUmTelefone();
 
 }
